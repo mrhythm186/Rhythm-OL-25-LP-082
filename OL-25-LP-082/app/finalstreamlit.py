@@ -245,7 +245,7 @@ elif menu =='Predict Age':
    
     
     if st.button('Predict'):
-        model = joblib.load('reg_model.pk')
+        model = joblib.load('reg_model.pkl')
         predicted_age = model.predict(input_df)
         st.write(f"Predicted Age: {np.expm1(predicted_age)} years")
 
@@ -381,6 +381,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
