@@ -26,11 +26,11 @@ build data-driven solutions for:
 ---
 
 ## 🔗 Important Links  
-- *EDA Notebook:* 
-- *Classification Notebook:*
-- *Regression Notebook:* 
-- *Clustering Notebook:* 
-- *Streamlit App:* 
+- *EDA Notebook:* https://github.com/mrhythm186/Rhythm-OL-25-LP-082/blob/main/OL-25-LP-082/models/eda0.py
+- *Classification Notebook:*https://github.com/mrhythm186/Rhythm-OL-25-LP-082/blob/main/OL-25-LP-082/models/log_clf.py
+- *Regression Notebook:* https://github.com/mrhythm186/Rhythm-OL-25-LP-082/blob/main/OL-25-LP-082/models/randmfrst_reg.py
+- *Clustering Notebook:* https://github.com/mrhythm186/Rhythm-OL-25-LP-082/blob/main/OL-25-LP-082/models/clustering.py
+- *Streamlit App:* https://finalapppy-rykat8rsjauhkpmnefhdqg.streamlit.app/
   
 
 
