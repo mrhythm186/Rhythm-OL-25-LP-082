@@ -288,7 +288,6 @@ if menu =="Predicting Treatment Seeking":
     'Gender': gender,
     'self_employed': self_employed,
     'family_history': family_history,
-    'treatment': treatment,
     'work_interfere': work_interfere,
     'remote_work': remote_work,
     'benefits': benefits,
@@ -381,6 +380,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
