@@ -44,7 +44,7 @@ if menu == "About":
 
   
 
-elif menu == " Exploratory Data Analysis and model report":
+elif menu =="Exploratory Data Analysis and model report":
     st.title("📊 Data Analysis and Observations")
     st.divider()
     st.write("This dataset had many anomalies, null values, outliers, and imbalanced data in columns like `Gender`, `Age`, `Country`, etc. which needed to be cleaned" \
@@ -53,12 +53,8 @@ elif menu == " Exploratory Data Analysis and model report":
     st.divider()
     
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 154050.png", caption="Gender Distribution", use_container_width=True)
-
-
-    col1 = st.columns(2)
-
-    with col1:
-        st.markdown("""
+    
+    st.markdown("""
         ### A **significant majority** of respondents identify as **Male**, making up the largest proportion of the dataset.
      - **Female** respondents represent a smaller but still notable portion of the population.
      - A minimal percentage of participants identify as **Other** or non-binary genders.
@@ -68,63 +64,37 @@ elif menu == " Exploratory Data Analysis and model report":
 
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181826.png", caption="Work Interference", use_container_width=True)
 
-    col1 = st.columns(2)
-
-    with col1:
-        st.markdown("""The majority of respondents report mental health interference at work occurring 'Sometimes', with fewer experiencing it 'Often'.  
+    st.markdown("""The majority of respondents report mental health interference at work occurring 'Sometimes', with fewer experiencing it 'Often'.  
         This suggests that while workplace impact on mental health exists, it is not persistently high for most employees.
       """)
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181833.png", caption="Age Distribution", use_container_width=True)
-
-    col1 = st.columns(2)
-
-    with col1:
-     st.markdown("""Most participants are aged 25–35, indicating the dataset primarily reflects early to mid-career professionals.  
+    st.markdown("""Most participants are aged 25–35, indicating the dataset primarily reflects early to mid-career professionals.  
      Older age groups are underrepresented, with very few respondents over 50.
      """)
-
-
-  
 
     st.divider()
    
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181838.png", caption="Treatment Seeking", use_container_width=True)
- 
-    col1 = st.columns(2)
-
-    with col1:
-        st.markdown("""
+    st.markdown("""
         The split between those seeking and not seeking treatment is nearly balanced, with a slight tilt toward treatment seekers.  
         This reflects moderate openness toward addressing mental health but also highlights hesitation among many.
         """)
 
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181844.png", caption="Treatment Seeking By Gender", use_container_width=True)
-
-    col1 = st.columns(2)
-
-    with col1:
-     st.markdown("""
+    st.markdown("""
      Males form the largest group overall, but proportionally, females are more likely to seek treatment.  
      Other genders have low representation but appear in both seeking and non-seeking categories.
       """)
 
     
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181851.png", caption="Treatment Seeking By Age", use_container_width=True)
-
-    col1 = st.columns(2)
-
-    with col1:
-     st.markdown("""The 25–35 age group dominates in both treatment-seeking and non-seeking categories.  
+    st.markdown("""The 25–35 age group dominates in both treatment-seeking and non-seeking categories.  
      A notable trend is that individuals aged 36–50 show a stronger tendency to seek treatment,  
      while younger participants (<25) are evenly split in their responses.
     
      """)
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181857.png", caption="Awareness about Benefits", use_container_width=True)
-
-    col1 = st.columns(2)
-
-    with col1:
-     st.markdown("""The largest proportion of respondents are aware of their mental health benefits (category **1**).  
+    st.markdown("""The largest proportion of respondents are aware of their mental health benefits (category **1**).  
      - A significant portion of participants are unsure about whether they have such benefits (“don’t know”).  
      - The smallest group reported not having mental health benefits (category **0**).  
      - Awareness levels are not overwhelmingly high, as the combined “don’t know” and “no” categories are nearly equal to the “yes” category.  
@@ -133,11 +103,7 @@ elif menu == " Exploratory Data Analysis and model report":
      """)
 
     st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181905.png", caption="Treatment by Awareness about Benefits", use_container_width=True)
-
-    col1 = st.columns(2)
-
-    with col1:
-     st.markdown("""
+    st.markdown("""
      - A large majority of respondents in the **“Don’t know”** category still chose to seek treatment, with around 250 people opting for it out of approximately 300.  
      - Only about 50 individuals in the **“Don’t know”** category avoided treatment, showing that uncertainty about benefits does not heavily discourage seeking help.  
      - Factors other than benefits awareness may play a stronger role in influencing treatment decisions.  
@@ -229,7 +195,7 @@ elif menu == " Exploratory Data Analysis and model report":
     st.divider()
 
 
-elif menu == 'Predict Age':
+elif menu =='Predict Age':
     st.header("📊 Age Prediction")
     st.subheader(".")
 
@@ -288,7 +254,7 @@ elif menu == 'Predict Age':
 
 
 
-if menu == "Predicting Treatment Seeking":
+if menu =="Predicting Treatment Seeking":
     st.header("Treatment Prediction")
     st.subheader('Predicting whether a employee is likely to seek mental health treatment')
     st.caption("Model Used : RandomForestClassifier")
@@ -350,7 +316,7 @@ if menu == "Predicting Treatment Seeking":
 
 
 
-elif menu == "Persona Clustering":
+elif menu =="Persona Clustering":
     st.title("📊 Clustering Analysis")
     st.divider()
     st.markdown("The objective of this task is to make clusters and group tech workers according to their mental health personas. Below are some of the techniques and algorithms applied for the same.")
@@ -415,4 +381,5 @@ elif menu == "Persona Clustering":
 
 
         """)
+
 
