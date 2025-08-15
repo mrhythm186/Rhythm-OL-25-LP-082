@@ -52,7 +52,7 @@ elif menu =="Exploratory Data Analysis and model report":
  
     st.divider()
     
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 154050.png", caption="Gender Distribution", use_container_width=True)
+    st.image(, caption="Gender Distribution", use_container_width=True)
     
     st.markdown("""
         ### A **significant majority** of respondents identify as **Male**, making up the largest proportion of the dataset.
@@ -381,6 +381,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
