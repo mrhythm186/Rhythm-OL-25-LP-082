@@ -8,7 +8,7 @@ menu = st.sidebar.radio(
     "Go to",
     [
         "About",
-        "Exploratory Data Analysis and model report",
+        "Exploratory Data Analysis",
         "Predict Age",
         "Predicting Treatment Seeking",
         "Persona Clustering"
@@ -44,7 +44,7 @@ if menu == "About":
 
   
 
-elif menu =="Exploratory Data Analysis and model report":
+elif menu =="Exploratory Data Analysis":
     st.title("📊 Data Analysis and Observations")
     st.divider()
     st.write("This dataset had many anomalies, null values, outliers, and imbalanced data in columns like `Gender`, `Age`, `Country`, etc. which needed to be cleaned" \
@@ -115,8 +115,51 @@ elif menu =="Exploratory Data Analysis and model report":
 
   
   
+
+
+elif menu =='Predict Age':
+    st.title("Regression Report")
   
-    st.title("Classification Task")
+    st.markdown("""
+
+       In this part of the project, the goal was to predict a **numerical outcome** — the age of the survey respondents — based on their answers.  
+      Instead of predicting "Yes" or "No", here the task was to estimate an exact number.
+
+     I considered similar factors as in the classification task, such as:
+     - Gender
+     - Family history of mental health issues
+     - Workplace size and remote work
+     - Self-employment status
+     - Awareness of workplace benefits
+
+     I experimented with different machine learning models, and **Random Forest Regressor** performed slightly better than Linear Regression for our dataset.  
+     Although the R² scores were low, Random Forest captured more variability and gave a lower Mean Squared Error compared to Linear Regression.  
+     I split the data into training and testing sets and evaluated the models using metrics like **Mean Squared Error (MSE)** and **R² Score**.  
+     The results show that predicting age from these survey factors is challenging, suggesting that age is not strongly determined by the features provided.
+
+     """)
+
+    st.image("OL-25-LP-082/Images/linear.png", caption="Linear Regressor", use_container_width=False)
+    st.markdown("""
+     ###   - MSE **43.80** with R² **0.0367**, lowest performance among tested models.  
+     - Simple baseline but struggles with capturing variability in the data.  
+     """)
+    st.divider()
+
+
+    st.image("OL-25-LP-082/Images/rndm reg.png", caption="Random Forest Classifier", use_container_width=False)
+    st.markdown("""
+     ###   - MSE **41.97** with R² **0.0769**, showing limited predictive strength.  
+     - Captures complex patterns better than Linear Regression in this case.
+     """)
+    st.divider()
+    
+
+
+
+if menu =="Predicting Treatment Seeking":
+    st.title("Classification Report")
+        
     st.markdown("""
 
        In this part of the project, the goal was to predict whether someone will seek mental health treatment based on their survey responses.  
@@ -159,156 +202,7 @@ elif menu =="Exploratory Data Analysis and model report":
         - Performs well but needs more tuning for optimal results.  """)
     st.divider()
 
-    st.title("Regression Task")
-    st.markdown("""
-
-       In this part of the project, the goal was to predict a **numerical outcome** — the age of the survey respondents — based on their answers.  
-      Instead of predicting "Yes" or "No", here the task was to estimate an exact number.
-
-     I considered similar factors as in the classification task, such as:
-     - Gender
-     - Family history of mental health issues
-     - Workplace size and remote work
-     - Self-employment status
-     - Awareness of workplace benefits
-
-     I experimented with different machine learning models, and **Random Forest Regressor** performed slightly better than Linear Regression for our dataset.  
-     Although the R² scores were low, Random Forest captured more variability and gave a lower Mean Squared Error compared to Linear Regression.  
-     I split the data into training and testing sets and evaluated the models using metrics like **Mean Squared Error (MSE)** and **R² Score**.  
-     The results show that predicting age from these survey factors is challenging, suggesting that age is not strongly determined by the features provided.
-
-     """)
-
-    st.image("OL-25-LP-082/Images/linear.png", caption="Linear Regressor", use_container_width=False)
-    st.markdown("""
-     ###   - MSE **43.80** with R² **0.0367**, lowest performance among tested models.  
-     - Simple baseline but struggles with capturing variability in the data.  
-     """)
-    st.divider()
-
-
-    st.image("OL-25-LP-082/Images/rndm reg.png", caption="Random Forest Classifier", use_container_width=False)
-    st.markdown("""
-     ###   - MSE **41.97** with R² **0.0769**, showing limited predictive strength.  
-     - Captures complex patterns better than Linear Regression in this case.
-     """)
-    st.divider()
-
-
-elif menu =='Predict Age':
-    st.header("📊 Age Prediction")
-    st.subheader("Answer the following questions to predict age")
-
-    gender = st.selectbox("Gender", ['Male', 'Female', 'Other'])
-    self_employed = st.selectbox('Are you self-employed?', ['Unknown', 'Yes', 'No'])
-    family_history = st.selectbox("Do you have a family history of mental illness?", ['Yes', 'No'])
-    treatment = st.selectbox('Have you sought treatment for a mental health condition?', ['Yes', 'No'])
-    work_interfere = st.selectbox('If you have a mental health condition, do you feel that it interferes with your work?',
-                                  ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown'])
-    remote_work = st.selectbox('Do you work remotely (outside of an office) at least 50% of the time?', ['Yes', 'No'])
-    benefits = st.selectbox('Does your employer provide mental health benefits?', ["Don't know", 'Yes', 'No'])
-    care_options = st.selectbox('Do you know the options for mental health care your employer provides?',
-                                ['Not sure', 'No', 'Yes'])
-    wellness_program = st.selectbox('Has your employer ever discussed mental health as part of a wellness program?',
-                                    ["Don't know", 'Yes', 'No'])
-    seek_help = st.selectbox('Does your employer provide resources to learn about mental health and seeking help?',
-                             ['Yes', 'No'])
-    leave = st.selectbox('How easy is it for you to take mental health leave?',
-                         ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"])
-    mental_health_consequence = st.selectbox('Would discussing mental health with your employer have negative consequences?',
-                                             ['No', 'Maybe', 'Yes'])
-    coworkers = st.selectbox('Would you discuss a mental health issue with your coworkers?',
-                             ['Some of them', 'No', 'Yes'])
-    mental_health_interview = st.selectbox('Would you bring up a mental health issue in an interview?',
-                                           [ 'No', 'Yes'])
-    supervisor = st.selectbox('Would you discuss a mental health issue with your supervisor(s)?',
-                              ['No', 'Maybe', 'Yes'])
     
-   
-    input_df = pd.DataFrame([{
-    'Gender': gender,
-    'self_employed': self_employed,
-    'family_history': family_history,
-    'treatment': treatment,
-    'work_interfere': work_interfere,
-    'remote_work': remote_work,
-    'benefits': benefits,
-    'care_options': care_options,
-    'wellness_program': wellness_program,
-    'seek_help': seek_help,
-    'leave': leave,
-    'mental_health_consequence': mental_health_consequence,
-    'coworkers': coworkers,
-    'mental_health_interview': mental_health_interview,
-    'supervisor': supervisor
-}])
-   
-    
-    if st.button('Predict'):
-        model = joblib.load('OL-25-LP-082/app/reg_model.pkl')
-        predicted_age = model.predict(input_df)
-        st.write(f"Predicted Age: {np.expm1(predicted_age)} years")
-
-
-
-
-
-
-if menu =="Predicting Treatment Seeking":
-    st.header("Treatment Prediction")
-    st.subheader('Predicting whether a employee is likely to seek mental health treatment')
-    st.caption("Model Used : RandomForestClassifier")
-
-    gender = st.selectbox("Gender", ['Male', 'Female', 'Other'])
-    self_employed = st.selectbox('Are you self-employed?', ['Unknown', 'Yes', 'No'])
-    family_history = st.selectbox("Do you have a family history of mental illness?", ['Yes', 'No'])
-    treatment = st.selectbox('Have you sought treatment for a mental health condition?', ['Yes', 'No'])
-    work_interfere = st.selectbox('If you have a mental health condition, do you feel that it interferes with your work?',
-                                  ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown'])
-    remote_work = st.selectbox('Do you work remotely (outside of an office) at least 50% of the time?', ['Yes', 'No'])
-    benefits = st.selectbox('Does your employer provide mental health benefits?', ["Don't know", 'Yes', 'No'])
-    care_options = st.selectbox('Do you know the options for mental health care your employer provides?',
-                                ['Not sure', 'No', 'Yes'])
-    wellness_program = st.selectbox('Has your employer ever discussed mental health as part of a wellness program?',
-                                    ["Don't know", 'Yes', 'No'])
-    seek_help = st.selectbox('Does your employer provide resources to learn about mental health and seeking help?',
-                             ['Yes', 'No'])
-    leave = st.selectbox('How easy is it for you to take mental health leave?',
-                         ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"])
-    mental_health_consequence = st.selectbox('Would discussing mental health with your employer have negative consequences?',
-                                             ['No', 'Maybe', 'Yes'])
-    coworkers = st.selectbox('Would you discuss a mental health issue with your coworkers?',
-                             ['Some of them', 'No', 'Yes'])
-    mental_health_interview = st.selectbox('Would you bring up a mental health issue in an interview?',
-                                           [ 'No', 'Yes'])
-    supervisor = st.selectbox('Would you discuss a mental health issue with your supervisor(s)?',
-                              ['No', 'Maybe', 'Yes'])
-    
-    input_df = pd.DataFrame([{
-    'Gender': gender,
-    'self_employed': self_employed,
-    'family_history': family_history,
-    'work_interfere': work_interfere,
-    'remote_work': remote_work,
-    'benefits': benefits,
-    'care_options': care_options,
-    'wellness_program': wellness_program,
-    'seek_help': seek_help,
-    'leave': leave,
-    'mental_health_consequence': mental_health_consequence,
-    'coworkers': coworkers,
-    'mental_health_interview': mental_health_interview,
-    'supervisor': supervisor
-    }])
-
-    
-    if st.button('Predict'):
-        clf = joblib.load('OL-25-LP-082/app/clf_model.pkl')
-        predicted_treatment = clf.predict(input_df)
-        if predicted_treatment == 1 :
-            st.write('Yes')
-        else :
-            st.write("No")
 
 
 
@@ -380,6 +274,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
