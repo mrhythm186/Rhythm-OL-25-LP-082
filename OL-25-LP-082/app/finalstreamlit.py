@@ -52,7 +52,7 @@ elif menu =="Exploratory Data Analysis and model report":
  
     st.divider()
     
-    st.image(, caption="Gender Distribution", use_container_width=True)
+    st.image("OL-25-LP-082/Images/gender distri.png", caption="Gender Distribution", use_container_width=True)
     
     st.markdown("""
         ### A **significant majority** of respondents identify as **Male**, making up the largest proportion of the dataset.
@@ -62,38 +62,38 @@ elif menu =="Exploratory Data Analysis and model report":
         """)
 
 
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181826.png", caption="Work Interference", use_container_width=True)
+    st.image("OL-25-LP-082/Images/work inter.png", caption="Work Interference", use_container_width=True)
 
     st.markdown("""The majority of respondents report mental health interference at work occurring 'Sometimes', with fewer experiencing it 'Often'.  
         This suggests that while workplace impact on mental health exists, it is not persistently high for most employees.
       """)
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181833.png", caption="Age Distribution", use_container_width=True)
+    st.image("OL-25-LP-082/Images/age distri.png", caption="Age Distribution", use_container_width=True)
     st.markdown("""Most participants are aged 25–35, indicating the dataset primarily reflects early to mid-career professionals.  
      Older age groups are underrepresented, with very few respondents over 50.
      """)
 
     st.divider()
    
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181838.png", caption="Treatment Seeking", use_container_width=True)
+    st.image("OL-25-LP-082/Images/treatment.png", caption="Treatment Seeking", use_container_width=True)
     st.markdown("""
         The split between those seeking and not seeking treatment is nearly balanced, with a slight tilt toward treatment seekers.  
         This reflects moderate openness toward addressing mental health but also highlights hesitation among many.
         """)
 
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181844.png", caption="Treatment Seeking By Gender", use_container_width=True)
+    st.image("OL-25-LP-082/Images/treatment gender.png", caption="Treatment Seeking By Gender", use_container_width=True)
     st.markdown("""
      Males form the largest group overall, but proportionally, females are more likely to seek treatment.  
      Other genders have low representation but appear in both seeking and non-seeking categories.
       """)
 
     
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181851.png", caption="Treatment Seeking By Age", use_container_width=True)
+    st.image("OL-25-LP-082/Images/treatment age.png", caption="Treatment Seeking By Age", use_container_width=True)
     st.markdown("""The 25–35 age group dominates in both treatment-seeking and non-seeking categories.  
      A notable trend is that individuals aged 36–50 show a stronger tendency to seek treatment,  
      while younger participants (<25) are evenly split in their responses.
     
      """)
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181857.png", caption="Awareness about Benefits", use_container_width=True)
+    st.image("OL-25-LP-082/Images/benifits awareness.png", caption="Awareness about Benefits", use_container_width=True)
     st.markdown("""The largest proportion of respondents are aware of their mental health benefits (category **1**).  
      - A significant portion of participants are unsure about whether they have such benefits (“don’t know”).  
      - The smallest group reported not having mental health benefits (category **0**).  
@@ -102,7 +102,7 @@ elif menu =="Exploratory Data Analysis and model report":
      
      """)
 
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 181905.png", caption="Treatment by Awareness about Benefits", use_container_width=True)
+    st.image("OL-25-LP-082/Images/impact benifits.png", caption="Treatment by Awareness about Benefits", use_container_width=True)
     st.markdown("""
      - A large majority of respondents in the **“Don’t know”** category still chose to seek treatment, with around 250 people opting for it out of approximately 300.  
      - Only about 50 individuals in the **“Don’t know”** category avoided treatment, showing that uncertainty about benefits does not heavily discourage seeking help.  
@@ -138,14 +138,14 @@ elif menu =="Exploratory Data Analysis and model report":
      """)
     
     st.divider()
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 155746.png", caption="Logistic Classifier", use_container_width=False)
+    st.image("OL-25-LP-082/Images/log clf.png", caption="Logistic Classifier", use_container_width=False)
     st.markdown("""- Best performer with ROC-AUC **0.8974**, indicating strong discriminatory power.  
                    - Simple and efficient, making it suitable for quick, interpretable predictions. 
      """)
     st.divider()
 
     
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 155813.png", caption="Random Forest Classifier", use_container_width=True)
+    st.image("OL-25-LP-082/Images/rndm frstclf.png", caption="Random Forest Classifier", use_container_width=True)
 
     
     st.markdown("""
@@ -154,7 +154,7 @@ elif menu =="Exploratory Data Analysis and model report":
         """)
 
     st.divider()
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 155949.png", caption="XGB Classifier", use_container_width=True)
+    st.image("OL-25-LP-082/Images/xgb clf.png", caption="XGB Classifier", use_container_width=True)
     st.markdown("""- ROC-AUC **0.8899**, close to Random Forest.  
         - Performs well but needs more tuning for optimal results.  """)
     st.divider()
@@ -179,7 +179,7 @@ elif menu =="Exploratory Data Analysis and model report":
 
      """)
 
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 155718.png", caption="Linear Regressor", use_container_width=False)
+    st.image("OL-25-LP-082/Images/linear.png", caption="Linear Regressor", use_container_width=False)
     st.markdown("""
      ###   - MSE **43.80** with R² **0.0367**, lowest performance among tested models.  
      - Simple baseline but struggles with capturing variability in the data.  
@@ -187,7 +187,7 @@ elif menu =="Exploratory Data Analysis and model report":
     st.divider()
 
 
-    st.image("C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 155843.png", caption="Random Forest Classifier", use_container_width=False)
+    st.image("OL-25-LP-082/Images/rndm reg.png", caption="Random Forest Classifier", use_container_width=False)
     st.markdown("""
      ###   - MSE **41.97** with R² **0.0769**, showing limited predictive strength.  
      - Captures complex patterns better than Linear Regression in this case.
@@ -197,7 +197,7 @@ elif menu =="Exploratory Data Analysis and model report":
 
 elif menu =='Predict Age':
     st.header("📊 Age Prediction")
-    st.subheader(".")
+    st.subheader("Answer the following questions to predict age")
 
     gender = st.selectbox("Gender", ['Male', 'Female', 'Other'])
     self_employed = st.selectbox('Are you self-employed?', ['Unknown', 'Yes', 'No'])
@@ -381,6 +381,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
