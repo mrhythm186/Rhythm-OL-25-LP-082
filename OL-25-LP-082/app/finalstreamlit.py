@@ -330,7 +330,7 @@ elif menu =="Persona Clustering":
     st.divider()
 
     st.image(
-    "C:/Users/LOQ/OneDrive/Desktop/OL-25-LP-082/Images/Screenshot 2025-08-15 154009.png", 
+    "OL-25-LP-082/Images/Screenshot 2025-08-15 154009.png", 
     caption="Clusters formed by the models", 
     use_container_width=True
  )
@@ -381,5 +381,6 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
