@@ -117,7 +117,7 @@ elif menu =="Exploratory Data Analysis and model report":
   
   
     st.title("Classification Task")
-    st.markdown("""### Classification Task
+    st.markdown("""
 
        In this part of the project, the goal was to predict whether someone will seek mental health treatment based on their survey responses.  
      The outcome we’re trying to predict is simple — **"Yes" or "No"** for treatment.  
@@ -160,7 +160,7 @@ elif menu =="Exploratory Data Analysis and model report":
     st.divider()
 
     st.title("Regression Task")
-    st.markdown("""### Classification Task
+    st.markdown("""
 
        In this part of the project, the goal was to predict a **numerical outcome** — the age of the survey respondents — based on their answers.  
       Instead of predicting "Yes" or "No", here the task was to estimate an exact number.
@@ -245,7 +245,7 @@ elif menu =='Predict Age':
    
     
     if st.button('Predict'):
-        model = joblib.load('reg_model.pkl')
+        model = joblib.load('reg_model.pk')
         predicted_age = model.predict(input_df)
         st.write(f"Predicted Age: {np.expm1(predicted_age)} years")
 
@@ -381,6 +381,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
