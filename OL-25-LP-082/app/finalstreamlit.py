@@ -112,94 +112,82 @@ elif menu =="Exploratory Data Analysis":
      - Clearer workplace communication about healthcare benefits may help ensure that even the hesitant minority feels supported to seek care.  
 
      """)
-if menu == "Supervised Learning":
+elif menu == "Supervised Learning":
     st.title("Supervised Learning")
-    st.markdown(""" Supervised Learning in This Project
-
-             This project uses supervised learning to predict whether an individual is likely to seek mental health treatment. The model is trained on survey data, where each participant’s responses—such as gender, work environment, family history of mental illness, and other related factors—are paired with a known outcome indicating if they sought treatment. By learning from these labeled examples, the model identifies patterns and relationships in the data, allowing it to make accurate predictions for new individuals based on their survey responses. This approach ensures that the predictions are grounded in real-world data and can help in understanding factors influencing mental health treatment seeking.
-             """)
-
     
-    
-    st.title("Classification Report")
-        
     st.markdown("""
+    ### Supervised Learning in This Project
 
-       In this part of the project, the goal was to predict whether someone will seek mental health treatment based on their survey responses.  
-     The outcome we’re trying to predict is simple — **"Yes" or "No"** for treatment.  
+    This project uses supervised learning to predict whether an individual is likely to seek mental health treatment. 
+    The model is trained on survey data, where each participant’s responses—such as gender, work environment, family history of mental illness, 
+    and other related factors—are paired with a known outcome indicating if they sought treatment. 
+    By learning from these labeled examples, the model identifies patterns and relationships in the data, allowing it to make accurate predictions 
+    for new individuals based on their survey responses. This approach ensures that the predictions are grounded in real-world data and can help 
+    in understanding factors influencing mental health treatment seeking.
+    """)
 
-      I looked at different factors such as:
-      - Age and gender
-      - Whether they’re self-employed or working remotely
-     - If they have a family history of mental health issues
-     - How much work interferes with their mental health
-     - Company size
-     - Awareness about workplace benefits
+    st.title("Classification Report")
+    st.markdown("""
+    In this part of the project, the goal was to predict whether someone will seek mental health treatment based on their survey responses.  
+    The outcome we’re trying to predict is simple — **"Yes" or "No"** for treatment.  
 
-     I tried different machine learning models, and **Logistic Regression** performed the best for our dataset.  
-     It gave us strong results while also being simple to interpret — we could see how each factor influenced the likelihood of seeking treatment.  
-     I  split the data into training and testing sets and evaluated the model using accuracy, ROC-AUC score, precision, recall, and F1-score.  
-     The results can help identify people who might avoid treatment so that awareness and support programs can reach them before problems worsen.
+    Factors considered:
+    - Age and gender  
+    - Self-employment and remote work status  
+    - Family history of mental health issues  
+    - Work interference with mental health  
+    - Company size  
+    - Awareness about workplace benefits  
 
-     """)
-    
+    Different machine learning models were tested, and **Logistic Regression** performed the best.  
+    It is interpretable, allowing us to understand how each factor influences the likelihood of seeking treatment.  
+    Models were evaluated using accuracy, ROC-AUC, precision, recall, and F1-score.  
+    The results can help identify individuals who might avoid treatment, guiding awareness and support initiatives.
+    """)
+
     st.divider()
     st.image("OL-25-LP-082/Images/log clf.png", caption="Logistic Classifier", use_container_width=False)
-    st.markdown("""- Best performer with ROC-AUC **0.8974**, indicating strong discriminatory power.  
-                   - Simple and efficient, making it suitable for quick, interpretable predictions. 
-     """)
+    st.markdown("""
+    - ROC-AUC **0.8974**, indicating strong discriminatory power  
+    - Simple and efficient for interpretable predictions
+    """)
     st.divider()
 
-    
     st.image("OL-25-LP-082/Images/rndm frstclf.png", caption="Random Forest Classifier", use_container_width=True)
-
-    
     st.markdown("""
-        - ROC-AUC **0.8288**, slightly lower than Logistic Regression.  
-        - Captures non-linear relationships but less interpretable. 
-        """)
-
+    - ROC-AUC **0.8288**, slightly lower than Logistic Regression  
+    - Captures non-linear relationships but less interpretable
+    """)
     st.divider()
+
     st.image("OL-25-LP-082/Images/xgb clf.png", caption="XGB Classifier", use_container_width=True)
-    st.markdown("""- ROC-AUC **0.8899**, close to Random Forest.  
-        - Performs well but needs more tuning for optimal results.  """)
+    st.markdown("""
+    - ROC-AUC **0.8899**, close to Random Forest  
+    - Performs well but may require tuning for optimal results
+    """)
     st.divider()
 
-
- st.title("Regression Report")
-  
+    st.title("Regression Report")
     st.markdown("""
+    In this part of the project, the goal was to predict a **numerical outcome** — the age of survey respondents — based on their answers.  
+    Similar factors as classification were considered, such as gender, family history, company size, remote work, self-employment, and benefits awareness.  
 
-       In this part of the project, the goal was to predict a **numerical outcome** — the age of the survey respondents — based on their answers.  
-      Instead of predicting "Yes" or "No", here the task was to estimate an exact number.
-
-     I considered similar factors as in the classification task, such as:
-     - Gender
-     - Family history of mental health issues
-     - Workplace size and remote work
-     - Self-employment status
-     - Awareness of workplace benefits
-
-     I experimented with different machine learning models, and **Random Forest Regressor** performed slightly better than Linear Regression for our dataset.  
-     Although the R² scores were low, Random Forest captured more variability and gave a lower Mean Squared Error compared to Linear Regression.  
-     I split the data into training and testing sets and evaluated the models using metrics like **Mean Squared Error (MSE)** and **R² Score**.  
-     The results show that predicting age from these survey factors is challenging, suggesting that age is not strongly determined by the features provided.
-
-     """)
+    **Random Forest Regressor** slightly outperformed Linear Regression.  
+    Models were evaluated using **Mean Squared Error (MSE)** and **R² Score**.  
+    Low R² values indicate age is not strongly determined by the survey features.
+    """)
 
     st.image("OL-25-LP-082/Images/linear.png", caption="Linear Regressor", use_container_width=False)
     st.markdown("""
-     ###   - MSE **43.80** with R² **0.0367**, lowest performance among tested models.  
-     - Simple baseline but struggles with capturing variability in the data.  
-     """)
+    - MSE **43.80** with R² **0.0367** — baseline performance, struggles to capture variability
+    """)
     st.divider()
 
-
-    st.image("OL-25-LP-082/Images/rndm reg.png", caption="Random Forest Classifier", use_container_width=False)
+    st.image("OL-25-LP-082/Images/rndm reg.png", caption="Random Forest Regressor", use_container_width=False)
     st.markdown("""
-     ###   - MSE **41.97** with R² **0.0769**, showing limited predictive strength.  
-     - Captures complex patterns better than Linear Regression in this case.
-     """)
+    - MSE **41.97** with R² **0.0769** — captures more complex patterns than Linear Regression  
+    - Limited predictive strength, but better than the baseline
+    """)
     st.divider()
 
 
@@ -298,7 +286,7 @@ elif menu == 'Predict Age':
 elif menu == "Predicting Treatment Seeking":
 
     st.set_page_config(page_title="Treatment Prediction", layout="centered")
-    st.title("🧠 Mental Health Treatment Prediction")
+    st.title(" Mental Health Treatment Prediction")
     st.subheader("Logistic Classifier")
 
     clf = joblib.load("OL-25-LP-082/app/clf_model.pkl")
@@ -462,6 +450,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
