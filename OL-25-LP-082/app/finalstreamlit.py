@@ -259,7 +259,7 @@ if menu == "Predicting Treatment Seeking":
 
     # --- Prediction ---
     if st.button('Predict'):
-        clf = joblib.load('clf_model.pkl')
+        clf = joblib.load('OL-25-LP-082/app/clf_model.pkl')
         predicted_treatment = clf.predict(input_df)
 
         if predicted_treatment[0] == 1:
@@ -341,6 +341,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
