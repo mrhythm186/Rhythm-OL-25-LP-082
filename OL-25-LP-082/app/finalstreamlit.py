@@ -303,7 +303,8 @@ elif menu == "Predicting Treatment Seeking":
         pred = pipeline.predict(input_df)[0]
      if st.button("Predict Treatment"):
     pred = pipeline.predict(input_df)[0]
-    st.success("Yes — likely to seek treatment" if pred==1 else "No — unlikely to seek treatment" if pred==0 else "-1")
+    st.success("Yes — likely to seek treatment" if pred == 1 else "No — unlikely to seek treatment" if pred == 0 else "-1")
+
 
 
 
@@ -373,6 +374,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
