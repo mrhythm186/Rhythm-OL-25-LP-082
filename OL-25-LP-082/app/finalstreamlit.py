@@ -120,13 +120,16 @@ elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
+
     MODEL_PATH = "OL-25-LP-082/app/reg_model.pkl"
     model_wrap = joblib.load(MODEL_PATH)
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
     preprocessor = estimator.named_steps['preprocessor']
     feature_names = list(preprocessor.feature_names_in_)
+
     numeric_cols = []
     categorical_cols = []
+
     for name, transformer, cols in preprocessor.transformers_:
         if name == 'num' or str(name).lower().startswith('num'):
             cols_names = [feature_names[i] if isinstance(i, int) else i for i in cols]
@@ -144,32 +147,37 @@ elif menu == 'Predict Age':
     work_interfere_opts = ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown']
     no_employees_opts = ['Unknown', '1-5', '6-25', '26-100', '100-500', '500-1000', 'More than 1000'] 
 
+    questions = {
+        "self_employed": "Are you self-employed?",
+        "no_employees": "How many employees are in your company?",
+        "Gender": "What is your gender?",
+        "work_interfere": "Does a mental health condition interfere with your work?",
+        "family_history": "Do you have a family history of mental illness?",
+        "remote_work": "Do you work remotely at least 50% of the time?"
+    }
+
     input_values = {}
 
     for feat in feature_names:
         if feat in numeric_cols:
             if feat == 'self_employed':
-                val = st.selectbox("Are you self-employed?", yes_no_unknown, key=feat)
+                val = st.selectbox(questions.get(feat, feat), yes_no_unknown, key=feat)
                 input_values[feat] = {'Yes':1,'No':0,'Unknown':-1}[val]
             elif feat == 'no_employees':
-                val = st.selectbox("Number of employees (company size):", no_employees_opts, key=feat)
+                val = st.selectbox(questions.get(feat, feat), no_employees_opts, key=feat)
                 emp_map = {'Unknown':-1,'1-5':0,'6-25':1,'26-100':2,'100-500':3,'500-1000':4,'More than 1000':5}
                 input_values[feat] = emp_map[val]
             else:
                 val = st.selectbox(f"{feat} (Yes/No/Unknown):", yes_no_unknown, key=feat)
                 input_values[feat] = {'Yes':1,'No':0,'Unknown':-1}[val]
         else: 
-            if feat == 'Gender':
-                val = st.selectbox("Gender", gender_opts, key=feat)
-            elif feat == 'work_interfere':
-                val = st.selectbox("Work interference", work_interfere_opts, key=feat)
-            elif feat == 'family_history':
-                val = st.selectbox("Family history of mental illness?", yes_no_unknown, key=feat)
-            elif feat == 'remote_work':
-                val = st.selectbox("Do you work remotely at least 50% of the time?", yes_no_unknown, key=feat)
+            if feat in questions:
+                val = st.selectbox(questions[feat], 
+                                   gender_opts if feat=='Gender' else work_interfere_opts if feat=='work_interfere' else yes_no_unknown, 
+                                   key=feat)
             else:
                 val = st.selectbox(
-                    feat,
+                    f"{feat}:", 
                     ['Unknown','Yes','No','Maybe','Not sure',"Don't know",
                      'Some of them','Often','Rarely','Never','Sometimes',
                      'Very easy','Somewhat easy','Somewhat difficult','Very difficult'],
@@ -191,7 +199,7 @@ elif menu == "Predicting Treatment Seeking":
     st.set_page_config(page_title="Treatment Prediction", layout="centered")
     st.title("🧠 Mental Health Treatment Prediction")
 
-    clf = joblib.load("clf_model.pkl")
+    clf = joblib.load("OL-25-LP-082/app/clf_model.pkl")
     pipeline = getattr(clf, "best_estimator_", clf)
 
     features = [
@@ -351,6 +359,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
