@@ -117,7 +117,7 @@ elif menu =="Exploratory Data Analysis":
   
 elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
-    st.title("📊 Age Prediction")
+    st.title("📊 Age Predvdszvzsvzfbzdbzdbvzvdfdgafbiction")
     st.subheader("Random Forest Regressor")
 
     MODEL_PATH = "OL-25-LP-082/app/reg_model.pkl"
@@ -369,6 +369,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
