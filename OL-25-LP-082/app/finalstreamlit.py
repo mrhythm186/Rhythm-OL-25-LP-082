@@ -195,7 +195,7 @@ elif menu == 'Predict Age':
     st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
     
-    model_wrap = joblib.load('OL-25-LP-082/app/clf_model.pkl')
+    model_wrap = joblib.load('OL-25-LP-082/app/reg_model.pkl')
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
     if hasattr(estimator, 'named_steps') and 'preprocessor' in estimator.named_steps:
         preprocessor = estimator.named_steps['preprocessor']
@@ -445,6 +445,7 @@ elif menu =="Persona Clustering":
 
       Majority group representing untapped potential for intervention.
      """)
+
 
 
 
