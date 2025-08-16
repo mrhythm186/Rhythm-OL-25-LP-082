@@ -189,34 +189,45 @@ elif menu == "Predicting Treatment Seeking":
     st.subheader("Predicting whether an employee is likely to seek mental health treatment")
     st.caption("Model Used: RandomForestClassifier")
 
-    # --- Selectboxes ---
+    # --- User inputs ---
     gender = st.selectbox("Gender", ['Male', 'Female', 'Other'])
     self_employed = st.selectbox("Are you self-employed?", ['Unknown', 'Yes', 'No'])
     family_history = st.selectbox("Do you have a family history of mental illness?", ['Yes', 'No'])
     treatment = st.selectbox("Have you sought treatment for a mental health condition?", ['Yes', 'No'])
     work_interfere = st.selectbox(
-        "If you have a mental health condition, do you feel that it interferes with your work?",
+        "If you have a mental health condition, do you feel it interferes with your work?",
         ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown']
     )
-    remote_work = st.selectbox("Do you work remotely (outside of an office) at least 50% of the time?", ['Yes', 'No'])
+    remote_work = st.selectbox("Do you work remotely at least 50% of the time?", ['Yes', 'No'])
     benefits = st.selectbox("Does your employer provide mental health benefits?", ["Don't know", 'Yes', 'No'])
-    care_options = st.selectbox("Do you know the options for mental health care your employer provides?", ['Not sure', 'No', 'Yes'])
-    wellness_program = st.selectbox("Has your employer ever discussed mental health as part of a wellness program?", ["Don't know", 'Yes', 'No'])
-    seek_help = st.selectbox("Does your employer provide resources to learn about mental health and seeking help?", ['Yes', 'No'])
-    leave = st.selectbox("How easy is it for you to take mental health leave?", ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"])
-    mental_health_consequence = st.selectbox("Would discussing mental health with your employer have negative consequences?", ['No', 'Maybe', 'Yes'])
-    coworkers = st.selectbox("Would you discuss a mental health issue with your coworkers?", ['Some of them', 'No', 'Yes'])
-    mental_health_interview = st.selectbox("Would you bring up a mental health issue in an interview?", ['No', 'Yes'])
-    supervisor = st.selectbox("Would you discuss a mental health issue with your supervisor(s)?", ['No', 'Maybe', 'Yes'])
+    care_options = st.selectbox("Do you know the options for mental health care your employer provides?",
+                                ['Not sure', 'No', 'Yes'])
+    wellness_program = st.selectbox("Has your employer ever discussed mental health as part of a wellness program?",
+                                    ["Don't know", 'Yes', 'No'])
+    seek_help = st.selectbox("Does your employer provide resources to learn about mental health and seeking help?",
+                             ['Yes', 'No'])
+    leave = st.selectbox("How easy is it for you to take mental health leave?",
+                         ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"])
+    mental_health_consequence = st.selectbox(
+        "Would discussing mental health with your employer have negative consequences?",
+        ['No', 'Maybe', 'Yes']
+    )
+    coworkers = st.selectbox("Would you discuss a mental health issue with your coworkers?",
+                             ['Some of them', 'No', 'Yes'])
+    mental_health_interview = st.selectbox("Would you bring up a mental health issue in an interview?",
+                                           ['No', 'Yes'])
+    supervisor = st.selectbox("Would you discuss a mental health issue with your supervisor(s)?",
+                              ['No', 'Maybe', 'Yes'])
 
-    # --- Mapping selectbox values to numeric for the model ---
-    map_yes_no_unknown = {'Yes': 1, 'No': 0, 'Unknown': -1, "Don't know": -1}
+    # --- Mapping to numeric ---
+    map_yes_no_unknown = {'Yes': 1, 'No': 0, 'Unknown': -1, "Don't know": -1, "Not sure": -1}
     map_leave = {'Very easy': 3, 'Somewhat easy': 2, 'Somewhat difficult': 1, 'Very difficult': 0, "Don't know": -1}
     map_coworkers = {'Some of them': 1, 'No': 0, 'Yes': 2}
     map_supervisor = {'No': 0, 'Maybe': 1, 'Yes': 2}
     map_mental_interview = {'No': 0, 'Yes': 1}
     map_work_interfere = {'Often': 3, 'Sometimes': 2, 'Rarely': 1, 'Never': 0, 'Unknown': -1}
 
+    # --- Create DataFrame ---
     input_df = pd.DataFrame([{
         'Gender': gender,
         'self_employed': map_yes_no_unknown[self_employed],
@@ -237,12 +248,12 @@ elif menu == "Predicting Treatment Seeking":
 
     # --- Prediction ---
     if st.button('Predict'):
-        clf = joblib.load('OL-25-LP-082/app/reg_model.pkl')
+        clf = joblib.load('OL-25-LP-082/app/reg_model.pkl')  # Make sure this is in the same folder
         predicted_treatment = clf.predict(input_df)
-        st.success('Yes' if predicted_treatment[0] == 1 else 'No')
-
-
-
+        if predicted_treatment[0] == 1:
+            st.success("Yes, likely to seek treatment")
+        else:
+            st.info("No, unlikely to seek treatment")
 
 
 
@@ -312,6 +323,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
