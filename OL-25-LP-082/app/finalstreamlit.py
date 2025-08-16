@@ -120,7 +120,7 @@ elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
 
-    MODEL_PATH = "reg_model.pkl"
+    MODEL_PATH = "OL-25-LP-082/app/reg_model.pkl"
     model_wrap = joblib.load(MODEL_PATH)
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
     preprocessor = estimator.named_steps['preprocessor']
@@ -306,6 +306,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
