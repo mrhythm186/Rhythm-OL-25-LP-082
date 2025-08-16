@@ -218,7 +218,7 @@ elif menu == 'Predict Age':
                          'leave','mental_health_consequence','coworkers','mental_health_interview','supervisor']
         numeric_cols = feature_names.copy()
         categorical_cols = []
-    yes_no_unknown = ['Unknown', 'Yes', 'No']
+    yes_no_unknown = ['Yes', 'No', 'Unknown']
     gender_opts = ['Male', 'Female', 'Other']
     work_interfere_opts = ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown']
     no_employees_opts = ['Unknown', '1-5', '6-25', '26-100', '100-500', '500-1000', 'More than 1000']
@@ -445,6 +445,7 @@ elif menu =="Persona Clustering":
 
       Majority group representing untapped potential for intervention.
      """)
+
 
 
 
