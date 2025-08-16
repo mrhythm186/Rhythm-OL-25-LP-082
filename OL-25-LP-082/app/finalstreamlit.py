@@ -246,8 +246,6 @@ elif menu == "Predicting Treatment Seeking":
     opt_care = ["Yes", "No", "Not sure"]
     opt_wellness = ["Yes", "No", "Don't know"]
 
-    resp = {}
-    # Pre-selected defaults that the model predicts as Yes
     default_values = {
         "Gender": "Male",
         "self_employed": "No",
@@ -265,6 +263,7 @@ elif menu == "Predicting Treatment Seeking":
         "mental_health_interview": "No"
     }
 
+    resp = {}
     for f in features:
         q = questions[f]
         if f == "Gender":
@@ -296,14 +295,12 @@ elif menu == "Predicting Treatment Seeking":
         elif f == "mental_health_interview":
             resp[f] = st.selectbox(q, ["No", "Yes"], index=["No","Yes"].index(default_values[f]), key=f)
 
-    row = {f: (1 if resp[f] == "Yes" else 0 if resp[f] == "No" else -1) if f=="self_employed" else resp[f] for f in features}
+    row = {f: (1 if resp[f]=="Yes" else 0 if resp[f]=="No" else -1) if f=="self_employed" else resp[f] for f in features}
     input_df = pd.DataFrame([row], columns=features)
 
     if st.button("Predict Treatment"):
         pred = pipeline.predict(input_df)[0]
-     if st.button("Predict Treatment"):
-    pred = pipeline.predict(input_df)[0]
-    st.success("Yes — likely to seek treatment" if pred == 1 else "No — unlikely to seek treatment" if pred == 0 else "-1")
+        st.success("Yes — likely to seek treatment" if pred==1 else "No — unlikely to seek treatment" if pred==0 else "-1")
 
 
 
@@ -374,6 +371,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
