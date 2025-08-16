@@ -186,7 +186,7 @@ elif menu == 'Predict Age':
 
 
 
-if menu == "Predicting Treatment Seeking":
+elif menu == "Predicting Treatment Seeking":
     st.header("Treatment Prediction")
     st.subheader('Predicting whether an employee is likely to seek mental health treatment')
     st.caption("Model Used: RandomForestClassifier")
@@ -341,6 +341,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
