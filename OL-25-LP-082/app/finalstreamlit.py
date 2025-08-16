@@ -193,7 +193,7 @@ elif menu == "Supervised Learning":
 
   
   
-elif menu == 'Predict Age':
+elif menu =='Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
@@ -283,7 +283,7 @@ elif menu == 'Predict Age':
 
 
 
-elif menu == "Predicting Treatment Seeking":
+elif menu =="Predicting Treatment Seeking":
 
     st.set_page_config(page_title="Treatment Prediction", layout="centered")
     st.title(" Mental Health Treatment Prediction")
@@ -450,6 +450,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
