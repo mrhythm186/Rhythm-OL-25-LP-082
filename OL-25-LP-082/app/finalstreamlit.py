@@ -119,10 +119,10 @@ elif menu == "Supervised Learning":
     ### Supervised Learning in This Project
 
     This project uses supervised learning to predict whether an individual is likely to seek mental health treatment. 
-    The model is trained on survey data, where each participant’s responses—such as gender, work environment, family history of mental illness, 
-    and other related factors—are paired with a known outcome indicating if they sought treatment. 
+    The model is trained on survey data where each participant’s responsessuch as gender work environment, family history of mental illness, 
+    and other related factors are paired with a known outcome indicating if they sought treatment. 
     By learning from these labeled examples, the model identifies patterns and relationships in the data, allowing it to make accurate predictions 
-    for new individuals based on their survey responses. This approach ensures that the predictions are grounded in real-world data and can help 
+    for new individuals based on their survey responses. This approach ensures that the predictions are grounded in real world data and can help 
     in understanding factors influencing mental health treatment seeking.
     """)
 
@@ -450,6 +450,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
