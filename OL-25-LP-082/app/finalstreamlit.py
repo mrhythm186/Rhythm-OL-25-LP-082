@@ -10,7 +10,7 @@ menu = st.sidebar.radio(
         "About",
         "Exploratory Data Analysis",
         "Supervised Learning",
-        "Predict Age"
+        "Predict Age",
         "Predicting Treatment Seeking",
         "Persona Clustering"
     ]
@@ -450,6 +450,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
