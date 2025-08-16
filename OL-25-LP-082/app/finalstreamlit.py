@@ -119,6 +119,7 @@ elif menu =="Exploratory Data Analysis":
 elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
+    st.subheader("Random Forest Regressor")
     MODEL_PATH = "OL-25-LP-082/app/reg_model.pkl"
     model_wrap = joblib.load(MODEL_PATH)
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
@@ -186,80 +187,86 @@ elif menu == 'Predict Age':
 
 
 elif menu == "Predicting Treatment Seeking":
- st.set_page_config(page_title="Treatment Prediction", layout="centered")
- st.title("🧠 Mental Health Treatment Prediction")
- clf = joblib.load("clf_model.pkl")
- pipeline = getattr(clf, "best_estimator_", clf)
- features = [
-    "Gender", "self_employed", "family_history", "work_interfere", "remote_work",
-    "benefits", "care_options", "wellness_program", "seek_help", "leave",
-    "mental_health_consequence", "coworkers", "supervisor", "mental_health_interview"
-      ] 
-questions = {
-    "Gender": "What is your gender?",
-    "self_employed": "Are you self-employed?",
-    "family_history": "Do you have a family history of mental illness?",
-    "work_interfere": "Does a mental health condition interfere with your work?",
-    "remote_work": "Do you work remotely at least 50% of the time?",
-    "benefits": "Does your employer provide mental health benefits?",
-    "care_options": "Do you know what mental health care options your employer provides?",
-    "wellness_program": "Has your employer ever discussed mental health as part of a wellness program?",
-    "seek_help": "Does your employer provide resources to learn about mental health or seeking help?",
-    "leave": "How easy is it for you to take mental health leave?",
-    "mental_health_consequence": "Would discussing mental health with your employer have negative consequences?",
-    "coworkers": "Would you discuss a mental health issue with your coworkers?",
-    "supervisor": "Would you discuss a mental health issue with your supervisor(s)?",
-    "mental_health_interview": "Would you mention a mental health issue in a job interview?"
- }
- opt_yes_no_unknown = ["Yes", "No", "Unknown"]
- opt_gender = ["Male", "Female", "Other"]
- opt_work_interfere = ["Often", "Rarely", "Never", "Sometimes", "Unknown"]
- opt_leave = ["Very easy", "Somewhat easy", "Somewhat difficult", "Very difficult", "Don't know"]
- opt_coworkers = ["Yes", "No", "Some of them"]
- opt_remote = ["Yes", "No"]
- opt_benefits = ["Yes", "No", "Don't know"]
- opt_care = ["Yes", "No", "Not sure"]
- opt_wellness = ["Yes", "No", "Don't know"] 
- resp = {}
- for f in features:
-     q = questions[f]
-     if f == "Gender":
-         resp[f] = st.selectbox(q, opt_gender, key=f)
-     elif f == "self_employed":
-         resp[f] = st.selectbox(q, opt_yes_no_unknown, key=f)
-     elif f == "family_history":
-         resp[f] = st.selectbox(q, ["Yes", "No"], key=f)
-     elif f == "work_interfere":
-         resp[f] = st.selectbox(q, opt_work_interfere, key=f)
-     elif f == "remote_work":
-         resp[f] = st.selectbox(q, opt_remote, key=f)
-     elif f == "benefits":
-         resp[f] = st.selectbox(q, opt_benefits, key=f)
-     elif f == "care_options":
-         resp[f] = st.selectbox(q, opt_care, key=f)
-     elif f == "wellness_program":
-         resp[f] = st.selectbox(q, opt_wellness, key=f)
-     elif f == "seek_help":
-         resp[f] = st.selectbox(q, ["Yes", "No"], key=f)
-     elif f == "leave":
-         resp[f] = st.selectbox(q, opt_leave, key=f)
-     elif f == "mental_health_consequence":
-         resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], key=f)
-     elif f == "coworkers":
-         resp[f] = st.selectbox(q, opt_coworkers, key=f)
-     elif f == "supervisor":
-         resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], key=f)
-     elif f == "mental_health_interview":
-         resp[f] = st.selectbox(q, ["No", "Yes"], key=f)
- row = {f: (1 if resp[f] == "Yes" else 0 if resp[f] == "No" else -1) if f=="self_employed" else resp[f] for f in features}
- input_df = pd.DataFrame([row], columns=features)
- if st.button("Predict Treatment"):
-     pred = pipeline.predict(input_df)[0]
-     if pred == 1:
-         st.success("Yes — likely to seek treatment")
-     else:
-         st.success("No — unlikely to seek treatment")
- 
+    st.set_page_config(page_title="Treatment Prediction", layout="centered")
+    st.title("🧠 Mental Health Treatment Prediction")
+    st.subheader("Using logistic Classification")
+    clf = joblib.load("OL-25-LP-082/app/reg_model.pkl")
+    pipeline = getattr(clf, "best_estimator_", clf)
+    
+    features = [
+        "Gender", "self_employed", "family_history", "work_interfere", "remote_work",
+        "benefits", "care_options", "wellness_program", "seek_help", "leave",
+        "mental_health_consequence", "coworkers", "supervisor", "mental_health_interview"
+    ]
+    
+    questions = {
+        "Gender": "What is your gender?",
+        "self_employed": "Are you self-employed?",
+        "family_history": "Do you have a family history of mental illness?",
+        "work_interfere": "Does a mental health condition interfere with your work?",
+        "remote_work": "Do you work remotely at least 50% of the time?",
+        "benefits": "Does your employer provide mental health benefits?",
+        "care_options": "Do you know what mental health care options your employer provides?",
+        "wellness_program": "Has your employer ever discussed mental health as part of a wellness program?",
+        "seek_help": "Does your employer provide resources to learn about mental health or seeking help?",
+        "leave": "How easy is it for you to take mental health leave?",
+        "mental_health_consequence": "Would discussing mental health with your employer have negative consequences?",
+        "coworkers": "Would you discuss a mental health issue with your coworkers?",
+        "supervisor": "Would you discuss a mental health issue with your supervisor(s)?",
+        "mental_health_interview": "Would you mention a mental health issue in a job interview?"
+    }
+    opt_yes_no_unknown = ["Yes", "No", "Unknown"]
+    opt_gender = ["Male", "Female", "Other"]
+    opt_work_interfere = ["Often", "Rarely", "Never", "Sometimes", "Unknown"]
+    opt_leave = ["Very easy", "Somewhat easy", "Somewhat difficult", "Very difficult", "Don't know"]
+    opt_coworkers = ["Yes", "No", "Some of them"]
+    opt_remote = ["Yes", "No"]
+    opt_benefits = ["Yes", "No", "Don't know"]
+    opt_care = ["Yes", "No", "Not sure"]
+    opt_wellness = ["Yes", "No", "Don't know"]
+    
+    resp = {}
+    for f in features:
+        q = questions[f]
+        if f == "Gender":
+            resp[f] = st.selectbox(q, opt_gender, key=f)
+        elif f == "self_employed":
+            resp[f] = st.selectbox(q, opt_yes_no_unknown, key=f)
+        elif f == "family_history":
+            resp[f] = st.selectbox(q, ["Yes", "No"], key=f)
+        elif f == "work_interfere":
+            resp[f] = st.selectbox(q, opt_work_interfere, key=f)
+        elif f == "remote_work":
+            resp[f] = st.selectbox(q, opt_remote, key=f)
+        elif f == "benefits":
+            resp[f] = st.selectbox(q, opt_benefits, key=f)
+        elif f == "care_options":
+            resp[f] = st.selectbox(q, opt_care, key=f)
+        elif f == "wellness_program":
+            resp[f] = st.selectbox(q, opt_wellness, key=f)
+        elif f == "seek_help":
+            resp[f] = st.selectbox(q, ["Yes", "No"], key=f)
+        elif f == "leave":
+            resp[f] = st.selectbox(q, opt_leave, key=f)
+        elif f == "mental_health_consequence":
+            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], key=f)
+        elif f == "coworkers":
+            resp[f] = st.selectbox(q, opt_coworkers, key=f)
+        elif f == "supervisor":
+            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], key=f)
+        elif f == "mental_health_interview":
+            resp[f] = st.selectbox(q, ["No", "Yes"], key=f)
+    
+    row = {f: (1 if resp[f] == "Yes" else 0 if resp[f] == "No" else -1) if f == "self_employed" else resp[f] for f in features}
+    input_df = pd.DataFrame([row], columns=features)
+    
+    if st.button("Predict Treatment"):
+        pred = pipeline.predict(input_df)[0]
+        if pred == 1:
+            st.success("Yes — likely to seek treatment")
+        else:
+            st.success("No — unlikely to seek treatment")
+
 
 
 elif menu =="Persona Clustering":
@@ -327,6 +334,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
