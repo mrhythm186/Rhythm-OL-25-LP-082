@@ -194,74 +194,48 @@ elif menu == "Predicting Treatment Seeking":
     # --- User Inputs ---
     gender = st.selectbox("Gender", ['Male', 'Female', 'Other'])
     self_employed = st.selectbox('Are you self-employed?', ['Unknown', 'Yes', 'No'])
-    family_history = st.selectbox("Do you have a family history of mental illness?", ['Yes', 'No'])
-    treatment = st.selectbox('Have you sought treatment for a mental health condition?', ['Yes', 'No'])
-    work_interfere = st.selectbox(
-        'If you have a mental health condition, do you feel that it interferes with your work?',
-        ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown']
-    )
-    remote_work = st.selectbox(
-        'Do you work remotely (outside of an office) at least 50% of the time?',
-        ['Yes', 'No']
-    )
-    benefits = st.selectbox('Does your employer provide mental health benefits?', ["Don't know", 'Yes', 'No'])
-    care_options = st.selectbox(
-        'Do you know the options for mental health care your employer provides?',
-        ['Not sure', 'No', 'Yes']
-    )
-    wellness_program = st.selectbox(
-        'Has your employer ever discussed mental health as part of a wellness program?',
-        ["Don't know", 'Yes', 'No']
-    )
-    seek_help = st.selectbox(
-        'Does your employer provide resources to learn about mental health and seeking help?',
-        ['Yes', 'No']
-    )
-    leave = st.selectbox(
-        'How easy is it for you to take mental health leave?',
-        ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"]
-    )
-    mental_health_consequence = st.selectbox(
-        'Would discussing mental health with your employer have negative consequences?',
-        ['No', 'Maybe', 'Yes']
-    )
-    coworkers = st.selectbox(
-        'Would you discuss a mental health issue with your coworkers?',
-        ['Some of them', 'No', 'Yes']
-    )
-    mental_health_interview = st.selectbox(
-        'Would you bring up a mental health issue in an interview?',
-        ['No', 'Yes']
-    )
-    supervisor = st.selectbox(
-        'Would you discuss a mental health issue with your supervisor(s)?',
-        ['No', 'Maybe', 'Yes']
-    )
+    family_history = st.selectbox("Family history of mental illness?", ['Yes', 'No'])
+    treatment = st.selectbox('Have you sought treatment?', ['Yes', 'No'])
+    work_interfere = st.selectbox('Does condition interfere with work?', ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown'])
+    remote_work = st.selectbox('Work remotely at least 50%?', ['Yes', 'No'])
+    benefits = st.selectbox('Employer provides mental health benefits?', ["Don't know", 'Yes', 'No'])
+    care_options = st.selectbox('Know options for mental health care?', ['Not sure', 'No', 'Yes'])
+    wellness_program = st.selectbox('Employer discussed mental health in wellness program?', ["Don't know", 'Yes', 'No'])
+    seek_help = st.selectbox('Employer provides resources to learn about mental health?', ['Yes', 'No'])
+    leave = st.selectbox('Ease of taking mental health leave?', ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"])
+    mental_health_consequence = st.selectbox('Negative consequences of discussing mental health?', ['No', 'Maybe', 'Yes'])
+    coworkers = st.selectbox('Discuss mental health with coworkers?', ['Some of them', 'No', 'Yes'])
+    mental_health_interview = st.selectbox('Bring up mental health in interview?', ['No', 'Yes'])
+    supervisor = st.selectbox('Discuss mental health with supervisor(s)?', ['No', 'Maybe', 'Yes'])
 
-    # --- Create DataFrame for Model ---
+    # --- Convert inputs to numeric encoding matching training ---
+    yes_no_unknown_map = {'Yes':1, 'No':0, 'Unknown':-1, "Don't know":-1}
+    some_map = {'Some of them':1, 'No':0, 'Yes':2, 'Maybe':-1, 'Not sure':-1}
+    work_interfere_map = {'Often':3, 'Rarely':1, 'Never':0, 'Sometimes':2, 'Unknown':-1}
+    leave_map = {'Very easy':3, 'Somewhat easy':2, 'Somewhat difficult':1, 'Very difficult':0, "Don't know":-1}
+
     input_df = pd.DataFrame([{
         'Gender': gender,
-        'self_employed': self_employed,
-        'family_history': family_history,
-        'treatment': treatment,
-        'work_interfere': work_interfere,
-        'remote_work': remote_work,
-        'benefits': benefits,
-        'care_options': care_options,
-        'wellness_program': wellness_program,
-        'seek_help': seek_help,
-        'leave': leave,
-        'mental_health_consequence': mental_health_consequence,
-        'coworkers': coworkers,
-        'mental_health_interview': mental_health_interview,
-        'supervisor': supervisor
+        'self_employed': yes_no_unknown_map[self_employed],
+        'family_history': yes_no_unknown_map[family_history],
+        'treatment': yes_no_unknown_map[treatment],
+        'work_interfere': work_interfere_map[work_interfere],
+        'remote_work': yes_no_unknown_map[remote_work],
+        'benefits': yes_no_unknown_map[benefits],
+        'care_options': some_map[care_options],
+        'wellness_program': some_map[wellness_program],
+        'seek_help': yes_no_unknown_map[seek_help],
+        'leave': leave_map[leave],
+        'mental_health_consequence': some_map[mental_health_consequence],
+        'coworkers': some_map[coworkers],
+        'mental_health_interview': yes_no_unknown_map[mental_health_interview],
+        'supervisor': some_map[supervisor]
     }])
 
     # --- Prediction ---
     if st.button('Predict'):
-        clf = joblib.load('OL-25-LP-082/app/clf_model.pkl')
+        clf = joblib.load('clf_model.pkl')  # pipeline or preprocessor must be included in this model
         predicted_treatment = clf.predict(input_df)
-
         if predicted_treatment[0] == 1:
             st.success('Yes, likely to seek treatment')
         else:
@@ -341,6 +315,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
