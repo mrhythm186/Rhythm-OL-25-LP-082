@@ -191,7 +191,7 @@ elif menu == "Predicting Treatment Seeking":
     st.set_page_config(page_title="Treatment Prediction", layout="centered")
     st.title("🧠 Mental Health Treatment Prediction")
 
-    clf = joblib.load("OL-25-LP-082/app/clf_model.pkl")
+    clf = joblib.load("clf_model.pkl")
     pipeline = getattr(clf, "best_estimator_", clf)
 
     features = [
@@ -228,38 +228,56 @@ elif menu == "Predicting Treatment Seeking":
     opt_wellness = ["Yes", "No", "Don't know"]
 
     resp = {}
+    # Pre-selected defaults that the model predicts as Yes
+    default_values = {
+        "Gender": "Male",
+        "self_employed": "No",
+        "family_history": "Yes",
+        "work_interfere": "Sometimes",
+        "remote_work": "Yes",
+        "benefits": "Yes",
+        "care_options": "Yes",
+        "wellness_program": "Yes",
+        "seek_help": "Yes",
+        "leave": "Very easy",
+        "mental_health_consequence": "No",
+        "coworkers": "Yes",
+        "supervisor": "Yes",
+        "mental_health_interview": "No"
+    }
+
     for f in features:
         q = questions[f]
         if f == "Gender":
-            resp[f] = st.selectbox(q, opt_gender, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_gender, index=opt_gender.index(default_values[f]), key=f)
         elif f == "self_employed":
-            resp[f] = st.selectbox(q, opt_yes_no_unknown, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_yes_no_unknown, index=opt_yes_no_unknown.index(default_values[f]), key=f)
         elif f == "family_history":
-            resp[f] = st.selectbox(q, ["Yes", "No"], index=0, key=f)
+            resp[f] = st.selectbox(q, ["Yes", "No"], index=["Yes","No"].index(default_values[f]), key=f)
         elif f == "work_interfere":
-            resp[f] = st.selectbox(q, opt_work_interfere, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_work_interfere, index=opt_work_interfere.index(default_values[f]), key=f)
         elif f == "remote_work":
-            resp[f] = st.selectbox(q, opt_remote, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_remote, index=opt_remote.index(default_values[f]), key=f)
         elif f == "benefits":
-            resp[f] = st.selectbox(q, opt_benefits, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_benefits, index=opt_benefits.index(default_values[f]), key=f)
         elif f == "care_options":
-            resp[f] = st.selectbox(q, opt_care, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_care, index=opt_care.index(default_values[f]), key=f)
         elif f == "wellness_program":
-            resp[f] = st.selectbox(q, opt_wellness, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_wellness, index=opt_wellness.index(default_values[f]), key=f)
         elif f == "seek_help":
-            resp[f] = st.selectbox(q, ["Yes", "No"], index=0, key=f)
+            resp[f] = st.selectbox(q, ["Yes", "No"], index=["Yes","No"].index(default_values[f]), key=f)
         elif f == "leave":
-            resp[f] = st.selectbox(q, opt_leave, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_leave, index=opt_leave.index(default_values[f]), key=f)
         elif f == "mental_health_consequence":
-            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=2, key=f)
+            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=["No","Maybe","Yes"].index(default_values[f]), key=f)
         elif f == "coworkers":
-            resp[f] = st.selectbox(q, opt_coworkers, index=0, key=f)
+            resp[f] = st.selectbox(q, opt_coworkers, index=opt_coworkers.index(default_values[f]), key=f)
         elif f == "supervisor":
-            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=2, key=f)
+            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=["No","Maybe","Yes"].index(default_values[f]), key=f)
         elif f == "mental_health_interview":
-            resp[f] = st.selectbox(q, ["No", "Yes"], index=1, key=f)
+            resp[f] = st.selectbox(q, ["No", "Yes"], index=["No","Yes"].index(default_values[f]), key=f)
 
-    row = {f: (1 if resp[f] == "Yes" else 0 if resp[f] == "No" else -1) if f == "self_employed" else resp[f] for f in features}
+    row = {f: (1 if resp[f] == "Yes" else 0 if resp[f] == "No" else -1) if f=="self_employed" else resp[f] for f in features}
     input_df = pd.DataFrame([row], columns=features)
 
     if st.button("Predict Treatment"):
@@ -333,6 +351,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
