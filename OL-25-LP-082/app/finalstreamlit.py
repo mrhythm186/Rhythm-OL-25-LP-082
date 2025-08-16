@@ -190,21 +190,17 @@ elif menu == "Supervised Learning":
     """)
     st.divider()
 
-
-  
-  
 elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
-    model_wrap = joblib.load('OL-25-LP-082/app/reg_model.pkl')
+    st.caption('(Acknowledgement: This dataset is not ideal for predicting age using regression. This is for research purposes only.)')
+    model_wrap = joblib.load('reg_model.pkl')
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
     preprocessor = estimator.named_steps['preprocessor']
     feature_names = list(preprocessor.feature_names_in_)
-
     numeric_cols = []
     categorical_cols = []
-
     for name, transformer, cols in preprocessor.transformers_:
         if name == 'num' or str(name).lower().startswith('num'):
             cols_names = [feature_names[i] if isinstance(i, int) else i for i in cols]
@@ -212,16 +208,20 @@ elif menu == 'Predict Age':
         elif name == 'cat' or str(name).lower().startswith('cat'):
             cols_names = [feature_names[i] if isinstance(i, int) else i for i in cols]
             categorical_cols.extend(cols_names)
-
     for f in feature_names:
         if f not in numeric_cols and f not in categorical_cols:
             categorical_cols.append(f)
-
     yes_no_unknown = ['Unknown', 'Yes', 'No']
     gender_opts = ['Male', 'Female', 'Other']
     work_interfere_opts = ['Often', 'Rarely', 'Never', 'Sometimes', 'Unknown']
     no_employees_opts = ['Unknown', '1-5', '6-25', '26-100', '100-500', '500-1000', 'More than 1000']
-
+    custom_options = {
+        'leave': ['Very easy', 'Somewhat easy', 'Somewhat difficult', 'Very difficult', "Don't know"],
+        'mental_health_consequence': ['No', 'Maybe', 'Yes'],
+        'coworkers': ['Some of them', 'No', 'Yes'],
+        'mental_health_interview': ['No', 'Yes'],
+        'supervisor': ['No', 'Maybe', 'Yes']
+    }
     questions = {
         "Gender": "Gender",
         "self_employed": "Are you self-employed?",
@@ -239,14 +239,12 @@ elif menu == 'Predict Age':
         "mental_health_interview": "Would you bring up a mental health issue in an interview?",
         "supervisor": "Would you discuss a mental health issue with your supervisor(s)?"
     }
-
     input_values = {}
-
     for feat in feature_names:
         if feat in numeric_cols:
             if feat == 'self_employed':
                 val = st.selectbox(questions[feat], yes_no_unknown, index=0, key=feat)
-                input_values[feat] = {'Yes':1,'No':0,'Unknown':-1}[val]
+                input_values[feat] = {'Yes':1, 'No':0, 'Unknown':-1}[val]
             elif feat == 'no_employees':
                 val = st.selectbox(questions[feat], no_employees_opts, index=0, key=feat)
                 emp_map = {'Unknown':-1,'1-5':0,'6-25':1,'26-100':2,'100-500':3,'500-1000':4,'More than 1000':5}
@@ -255,25 +253,24 @@ elif menu == 'Predict Age':
                 val = st.selectbox(f"{questions.get(feat, feat)} (Yes/No/Unknown):", yes_no_unknown, key=feat)
                 input_values[feat] = {'Yes':1,'No':0,'Unknown':-1}[val]
         else:
-            if feat in questions:
-                if feat == 'Gender':
-                    val = st.selectbox(questions[feat], gender_opts, index=0, key=feat)
-                elif feat == 'work_interfere':
-                    val = st.selectbox(questions[feat], work_interfere_opts, index=0, key=feat)
-                elif feat in ['family_history', 'remote_work', 'treatment']:
-                    val = st.selectbox(questions[feat], ['Yes','No'], index=0, key=feat)
-                else:
-                    val = st.selectbox(questions[feat], yes_no_unknown, index=0, key=feat)
+            # Use exact options if defined in custom_options
+            if feat in custom_options:
+                val = st.selectbox(questions[feat], custom_options[feat], index=0, key=feat)
+            elif feat == 'Gender':
+                val = st.selectbox(questions[feat], gender_opts, index=0, key=feat)
+            elif feat == 'work_interfere':
+                val = st.selectbox(questions[feat], work_interfere_opts, index=0, key=feat)
+            elif feat in ['family_history', 'remote_work', 'treatment']:
+                val = st.selectbox(questions[feat], ['Yes','No'], index=0, key=feat)
             else:
-                val = st.selectbox(f"{feat}:", yes_no_unknown, index=0, key=feat)
+                val = st.selectbox(questions[feat], yes_no_unknown, index=0, key=feat)
             input_values[feat] = val
-
     input_df = pd.DataFrame([input_values], columns=feature_names)
-
     if st.button("Predict"):
         pred = estimator.predict(input_df)
         val = float(pred[0]) if hasattr(pred, "__len__") else float(pred)
         st.success(f"Predicted Age: {val:.1f} years")
+
 
 
 
@@ -442,6 +439,7 @@ elif menu =="Persona Clustering":
 
       Majority group representing untapped potential for intervention.
      """)
+
 
 
 
