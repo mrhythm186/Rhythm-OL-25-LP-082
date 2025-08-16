@@ -197,7 +197,7 @@ elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
     st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
-    model_wrap = joblib.load('"OL-25-LP-082/app/reg_model.pkl"')
+    model_wrap = joblib.load('OL-25-LP-082/app/reg_model.pkl')
     estimator = getattr(model_wrap, "best_estimator_", model_wrap)
     preprocessor = estimator.named_steps['preprocessor']
     feature_names = list(preprocessor.feature_names_in_)
@@ -442,6 +442,7 @@ elif menu =="Persona Clustering":
 
       Majority group representing untapped potential for intervention.
      """)
+
 
 
 
