@@ -117,7 +117,7 @@ elif menu =="Exploratory Data Analysis":
   
 elif menu == 'Predict Age':
     st.set_page_config(page_title="Age Prediction", layout="centered")
-    st.title("📊 Age Predvdszvzsvzfbzdbzdbvzvdfdgafbiction")
+    st.title("📊 Age Prediction")
     st.subheader("Random Forest Regressor")
 
     MODEL_PATH = "OL-25-LP-082/app/reg_model.pkl"
@@ -301,7 +301,8 @@ elif menu == "Predicting Treatment Seeking":
 
     if st.button("Predict Treatment"):
         pred = pipeline.predict(input_df)[0]
-        st.success("Yes — likely to seek treatment" if pred == 1 else "No — unlikely to seek treatment if pred==0  else "-1")s
+     st.success("Yes — likely to seek treatment" if pred==1 else "No — unlikely to seek treatment" if pred==0 else "-1")
+
 
 
 elif menu =="Persona Clustering":
@@ -369,6 +370,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
