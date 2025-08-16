@@ -187,10 +187,11 @@ elif menu == 'Predict Age':
 
 
 elif menu == "Predicting Treatment Seeking":
+
     st.set_page_config(page_title="Treatment Prediction", layout="centered")
     st.title("🧠 Mental Health Treatment Prediction")
-    st.subheader("Using Logistic Classifier")
-    clf = joblib.load("OL-25-LP-082/app/reg_model.pkl")
+
+    clf = joblib.load("OL-25-LP-082/app/clf_model.pkl")
     pipeline = getattr(clf, "best_estimator_", clf)
 
     features = [
@@ -230,13 +231,13 @@ elif menu == "Predicting Treatment Seeking":
     for f in features:
         q = questions[f]
         if f == "Gender":
-            resp[f] = st.selectbox(q, opt_gender, index=1, key=f)
+            resp[f] = st.selectbox(q, opt_gender, index=0, key=f)
         elif f == "self_employed":
             resp[f] = st.selectbox(q, opt_yes_no_unknown, index=0, key=f)
         elif f == "family_history":
             resp[f] = st.selectbox(q, ["Yes", "No"], index=0, key=f)
         elif f == "work_interfere":
-            resp[f] = st.selectbox(q, opt_work_interfere, index=3, key=f)
+            resp[f] = st.selectbox(q, opt_work_interfere, index=0, key=f)
         elif f == "remote_work":
             resp[f] = st.selectbox(q, opt_remote, index=0, key=f)
         elif f == "benefits":
@@ -250,7 +251,7 @@ elif menu == "Predicting Treatment Seeking":
         elif f == "leave":
             resp[f] = st.selectbox(q, opt_leave, index=0, key=f)
         elif f == "mental_health_consequence":
-            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=0, key=f)
+            resp[f] = st.selectbox(q, ["No", "Maybe", "Yes"], index=2, key=f)
         elif f == "coworkers":
             resp[f] = st.selectbox(q, opt_coworkers, index=0, key=f)
         elif f == "supervisor":
@@ -263,10 +264,7 @@ elif menu == "Predicting Treatment Seeking":
 
     if st.button("Predict Treatment"):
         pred = pipeline.predict(input_df)[0]
-        if pred == 1:
-            st.success("Yes — likely to seek treatment")
-        else:
-            st.success("No — unlikely to seek treatment")
+        st.success("Yes — likely to seek treatment" if pred == 1 else "No — unlikely to seek treatment")
 
 
 
@@ -335,6 +333,7 @@ elif menu =="Persona Clustering":
 
 
         """)
+
 
 
 
